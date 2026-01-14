@@ -28,6 +28,19 @@ printf "%s" "your_cloudflare_token_here" | docker secret create cloudflare_dns_a
 
 ```
 
+3. Generate a basic auth password hash for the dashboard (example):
+
+```bash
+# Requires apache2-utils (or httpd-tools)
+htpasswd -nbB admin "your_password_here"
+```
+
+If you use Nix (flakes), you can run `htpasswd` without installing anything:
+
+```bash
+nix shell --experimental-features "nix-command flakes" nixpkgs#apacheHttpd -c htpasswd -nbB admin "your_password_here"
+```
+
 3. Deploy the stack:
 
 ```bash
