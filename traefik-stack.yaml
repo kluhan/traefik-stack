@@ -24,7 +24,6 @@ services:
       - traefik-acme:/acme
     secrets:
       - cloudflare_dns_api_token
-      - letsencrypt_contact_email
     environment:
       # LEGO (ACME lib) Cloudflare Token:
       - CF_DNS_API_TOKEN_FILE=/run/secrets/cloudflare_dns_api_token
@@ -45,7 +44,7 @@ services:
       - --entrypoints.web.http.redirections.entryPoint.scheme=https
 
       # ACME DNS-01 via Cloudflare
-      - --certificatesresolvers.letsencrypt.acme.emailFile=/run/secrets/letsencrypt_contact_email
+      - --certificatesresolvers.letsencrypt.acme.email=admin@kluhan.dev
       - --certificatesresolvers.letsencrypt.acme.storage=/acme/acme.json
       - --certificatesresolvers.letsencrypt.acme.dnschallenge=true
       - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare
@@ -60,6 +59,4 @@ services:
 
 secrets:
   cloudflare_dns_api_token:
-    external: true
-  letsencrypt_contact_email:
     external: true
