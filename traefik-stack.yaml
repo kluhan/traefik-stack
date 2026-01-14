@@ -50,12 +50,12 @@ services:
       - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare
 
       # API & Dashboard
-      - --api.dashboard=true # Enable the dashboard
+      - --api.dashboard=true
     deploy:
       placement:
         constraints:
-          - node.role == manager
-          # - node.hostname == polaris
+          #- node.role == manager
+          - node.hostname == polaris
       labels:
         - traefik.enable=true
         - traefik.http.routers.dashboard.rule=Host(`traefik.kluhan.dev`)
@@ -65,10 +65,8 @@ services:
         - traefik.http.routers.dashboard.tls.certresolver=letsencrypt
         - traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$2y$$05$$wKVGDl4B06CQAY1nyOuUEOt05aINf6QriZXkJwQ/N4/uaRbLPvsRO
         - traefik.http.routers.dashboard.middlewares=dashboard-auth@swarm
-        # Service hint
-        # Dummy service port to satisfy Swarm provider (not actually used by dashboard router)
         - traefik.http.services.traefik.loadbalancer.server.port=8080
-        # - traefik.http.services.dummy-svc.loadbalancer.server.port=9999
+
   whoami:
     image: traefik/whoami
     networks: [traefik-public]
