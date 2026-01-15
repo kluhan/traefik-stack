@@ -34,6 +34,7 @@ services:
       - --providers.swarm=true
       - --providers.swarm.exposedbydefault=false
       - --providers.swarm.endpoint=unix:///var/run/docker.sock
+      - --providers.swarm.network=traefik-public
 
       # EntryPoints
       - --entrypoints.web.address=:80
