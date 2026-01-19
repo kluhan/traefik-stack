@@ -7,6 +7,10 @@ networks:
 volumes:
   traefik-acme:
 
+configs:
+  traefik-proxmox-config:
+    file: /opt/stacks/config.yaml
+
 services:
   traefik:
     image: traefik:v3.6
@@ -22,6 +26,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik-acme:/acme
+    configs:
+      - source: traefik-proxmox-config
+        target: /etc/traefik/dynamic/proxmox.yml
     secrets:
       - cloudflare_dns_api_token
     environment:
