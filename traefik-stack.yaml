@@ -9,7 +9,7 @@ volumes:
 
 configs:
   traefik-proxmox-config:
-    file: /opt/stacks/treafik-stack/config.yaml
+    file: /opt/stacks/traefik-stack/config.yaml
 
 services:
   traefik:
