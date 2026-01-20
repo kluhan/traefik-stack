@@ -65,8 +65,9 @@ services:
       # API & Dashboard
       - --api.dashboard=true
 
-      # Proxmox Dynamic Configuration File
-      - --providers.file.filename=/etc/traefik/dynamic/proxmox.yml
+      # Dynamic Configuration Files
+      - --providers.file.directory=/etc/traefik/dynamic
+      - --providers.file.watch=true
 
     deploy:
       placement:
