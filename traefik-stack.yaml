@@ -9,7 +9,9 @@ volumes:
 
 configs:
   traefik-proxmox-config:
-    file: /opt/stacks/traefik-stack/config.yaml
+    file: /opt/stacks/traefik-stack/config/proxmox-config.yaml
+  traefik-truenas-config:
+    file: /opt/stacks/traefik-stack/config/truenas-config.yaml
 
 services:
   traefik:
@@ -29,6 +31,8 @@ services:
     configs:
       - source: traefik-proxmox-config
         target: /etc/traefik/dynamic/proxmox.yml
+      - source: traefik-truenas-config
+        target: /etc/traefik/dynamic/truenas.yml
     secrets:
       - cloudflare_dns_api_token
     environment:
